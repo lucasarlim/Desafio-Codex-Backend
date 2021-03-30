@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-//conexão bd
+//Conexão Banco de Dados
 mongoose.connect('mongodb+srv://admin:codextreinee123@cluster0.gpbfh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {reconnectTries: Number.MAX_VALUE, reconnectInterval: 500, poolSize: 5, useNewUrlParser: true});
 mongoose.set('useCreateIndex', true);
 
@@ -23,7 +23,7 @@ mongoose.connection.on('connected', () => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const baseroute = require('./routes/base');
+const baseroute = require('./Routes');
 const usersroute = require('./routes/users');
 
 app.use('/', baseroute);
