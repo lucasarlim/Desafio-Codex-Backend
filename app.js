@@ -29,6 +29,6 @@ const usersroute = require('./Routes/users');
 app.use('/', indexroute);
 app.use('/users', usersroute);
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
 
 module.exports = app;
