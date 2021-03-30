@@ -1,0 +1,19 @@
+{
+  "name": "api_nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasarlim/Desafio-Codex-Backend.git"
+  },
+  "author": "Lucas Araujo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucasarlim/Desafio-Codex-Backend/issues"
+  },
+  "homepage": "https://github.com/lucasarlim/Desafio-Codex-Backend#readme"
+}
