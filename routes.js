@@ -1,8 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const dados = require('../model/cadastro');
+const dados = require('./model/cadastro');
 const bcrypt = require('bcrypt');
 
+// Verifica GET e POST
+router.get('/', (req, res) => {
+    return res.send({message: 'Tudo ok com o GET root'})
+})
+
+router.post('/', (req, res) => {
+    return res.send({message: 'Tudo ok com o POST root'})
+})
+
+// Verifica CRUD Usuarios
 
 router.get('/', async (req, res) => {
     try{

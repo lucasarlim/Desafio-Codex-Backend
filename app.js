@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 //Conexão Banco de Dados
 mongoose.connect('mongodb+srv://admin:codextreinee123@cluster0.gpbfh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {reconnectTries: Number.MAX_VALUE, reconnectInterval: 500, poolSize: 5, useNewUrlParser: true});
@@ -23,12 +24,14 @@ mongoose.connection.on('connected', () => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const indexroute = require('./Routes/index');
-const usersroute = require('./Routes/users');
+const indexroute = require('./routes');
+const usersroute = require('./routes');
 
 app.use('/', indexroute);
 app.use('/users', usersroute);
 
-app.listen(service.env.PORT || 3000);
+app.listen(3000);
+app.use(cors());
+
 
 module.exports = app;
