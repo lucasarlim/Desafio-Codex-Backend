@@ -30,7 +30,7 @@ const usersroute = require('./routes');
 app.use('/', indexroute);
 app.use('/users', usersroute);
 
-app.listen(3000);
+app.set('port', process.env.PORT || 3000);
 app.use(cors());
 
 
