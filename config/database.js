@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const config = require("./config");
 
 //Conexão Banco de Dados
-mongoose.connect('mongodb+srv://admin:codextreinee123@cluster0.gpbfh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {reconnectTries: Number.MAX_VALUE, reconnectInterval: 500, poolSize: 5, useNewUrlParser: true});
+mongoose.connect(config.bd_url , {reconnectTries: Number.MAX_VALUE, reconnectInterval: 500, poolSize: 5, useNewUrlParser: true});
 mongoose.set('useCreateIndex', true);
 
 mongoose.connection.on('error', (err) => {
