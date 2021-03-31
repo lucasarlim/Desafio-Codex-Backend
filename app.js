@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 
 //Conexão Banco de Dados
 mongoose.connect('mongodb+srv://admin:codextreinee123@cluster0.gpbfh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {reconnectTries: Number.MAX_VALUE, reconnectInterval: 500, poolSize: 5, useNewUrlParser: true});
@@ -31,7 +30,5 @@ app.use('/', indexroute);
 app.use('/users', usersroute);
 
 app.set('port', process.env.PORT || 3000);
-app.use(cors());
-
 
 module.exports = app;
