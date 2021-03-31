@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const dados = require('./model/cadastro');
+const dados = require('./model/Users');
 const bcrypt = require('bcrypt');
 
 // Verifica GET e POST
