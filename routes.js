@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
 
 // Verifica CRUD Usuarios
 
-router.get('/', async (req, res) => {
+router.get('/users', async (req, res) => {
     try{
         const dados = await dados.find({});
         return res.send(data);
@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/create', async (req, res) => {
+router.post('/users/create', async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return res.send({ error: 'Dados insuficientes!' });
 
@@ -37,7 +37,7 @@ router.post('/create', async (req, res) => {
         return res.send({ error: 'Erro ao buscar usuário!' });}
 });
 
-router.post('/auth', async (req, res) => {
+router.post('/users/auth', async (req, res) => {
     const { email, password} = req.body;
 
     if(!email || !password) return res.send({ erro: 'Dados insuficientes!'});

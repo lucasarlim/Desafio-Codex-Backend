@@ -27,7 +27,8 @@ app.use(bodyParser.json());
 const routes = require('./routes');
 
 app.use('/', routes);
+app.use('/users', routes);
 
-app.set('port', process.env.PORT || 3000);
+app.listen('port', process.env.PORT || 3000);
 
 module.exports = app;
