@@ -23,11 +23,10 @@ mongoose.connection.on('connected', () => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const indexroute = require('./routes');
-const usersroute = require('./routes');
 
-app.use('/', indexroute);
-app.use('/users', usersroute);
+const routes = require('./routes');
+
+app.use('/', routes);
 
 app.set('port', process.env.PORT || 3000);
 
