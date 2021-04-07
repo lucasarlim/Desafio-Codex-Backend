@@ -1,34 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const dados = require('./model/Users');
+const auth = require('./middlewares/auth');
+const Users = require('./model/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const auth = require('./middlewares/auth');
-const config = require("./config/config");
+const config = require('./config/config');
 
-//Funções auxiliares
-const tokendoUsuario = (userId) => {
-    return jwt.sign({id: userId}, config.jwt_key, {expiresIn: config.jwt_time});
+//FUNÇÕES AUXILIARES
+const createUserToken = (userId) => {
+    return jwt.sign({ id: userId }, config.jwt_pass, { expiresIn: config.jwt_expires_in });
 }
 
-// Verifica GET e POST
 router.get('/', auth, (req, res) => {
     console.log(res.locals.auth_data);
-    return res.send({message: 'Tudo ok com o GET root'})
+    return res.send({message: 'Essa informação é muito importante. Usuários não autorizados não deveriam recebê-la!'});
 });
 
 router.post('/', (req, res) => {
-    return res.send({message: 'Tudo ok com o POST root'})
+    return res.send({message: 'Tudo ok com o método POST da raiz!'});
 });
 
-// Verifica CRUD Usuarios
 
 router.get('/users', async (req, res) => {
-    try{
-        const dados = await dados.find({});
-        return res.send(data);
-    }catch(err){
-        res.status(500).send({error: 'Erro na consulta de usuarios'});
+    try {
+        const users = await Users.find({});
+        return res.send(users);
+    }
+    catch (err) {
+        return res.status(500).send({ error: 'Erro na consulta de usuários!' });
     }
 });
 
@@ -37,23 +36,25 @@ router.post('/users/create', async (req, res) => {
     if (!email || !password) return res.status(400).send({ error: 'Dados insuficientes!' });
 
     try {
-        if (await dados.findOne({ email })) return res.status(400).send({ error: 'Usuário já registrado!'});
+        if (await Users.findOne({ email })) return res.status(400).send({ error: 'Usuário já registrado!'});
 
-        const user = await dados.create(req.body);
+        const user = await Users.create(req.body);
         user.password = undefined;
 
-        return res.status(201).send({user, token: tokendoUsuario(user.id)});
-    }catch(err){
-        return res.status(500).send({ error: 'Erro ao buscar usuário!'});}
+        return res.status(201).send({user, token: createUserToken(user.id)});
+    }
+    catch (err) {
+        return res.status(500).send({ error: 'Erro ao buscar usuário!' });
+    }
 });
 
 router.post('/users/auth', async (req, res) => {
-    const { email, password} = req.body;
+    const { email, password } = req.body;
 
-    if(!email || !password) return res.status(400).send({ erro: 'Dados insuficientes!'});
+    if (!email || !password) return res.status(400).send({ error: 'Dados insuficientes!' });
 
     try {
-        const user = await dados.findOne({ email }).select('+password');
+        const user = await Users.findOne({ email }).select('+password');
         if (!user) return res.status(400).send({ error: 'Usuário não registrado!' });
 
         const pass_ok = await bcrypt.compare(password, user.password);
@@ -61,9 +62,9 @@ router.post('/users/auth', async (req, res) => {
         if(!pass_ok) return res.status(401).send({ error: 'Erro ao autenticar usuário!' });
 
         user.password = undefined;
-        return res.send({user, token: tokendoUsuario(user.id)});
+        return res.send({ user, token: createUserToken(user.id) });
     }
-    catch(err){
+    catch (err) {
         return res.status(500).send({ error: 'Erro ao buscar usuário!' });
     }
 });
