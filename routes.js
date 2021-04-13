@@ -5,6 +5,7 @@ const Users = require('./model/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('./config/config');
+const Tasks = require('./model/tasks');
 
 //FUNÇÕES AUXILIARES
 const createUserToken = (userId) => {
@@ -66,6 +67,23 @@ router.post('/users/auth', async (req, res) => {
     }
     catch (err) {
         return res.status(500).send({ error: 'Erro ao buscar usuário!' });
+    }
+
+});
+
+router.post('/task/create', async (req, res) => {
+    const { task, prioridade } = req.body;
+    if (!task || !prioridade) return res.status(400).send({ error: 'Dados insuficientes!' });
+
+    try {
+        if (await Tasks.findOne({ Tasks })) return res.status(400).send({ error: 'Usuário já registrado!'});
+
+        const task = await Tasks.create(req.body);
+
+        return res.status(201).send('tarefa criado com sucesso');
+    }
+    catch (err) {
+        return res.status(500).send({ error: 'Erro ao buscar Task' });
     }
 });
 
