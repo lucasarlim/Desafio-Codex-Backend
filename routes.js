@@ -10,17 +10,7 @@ const Tasks = require('./model/tasks');
 //FUNÇÕES AUXILIARES
 const createUserToken = (userId) => {
     return jwt.sign({ id: userId }, config.jwt_pass, { expiresIn: config.jwt_expires_in });
-}
-
-router.get('/', auth, (req, res) => {
-    console.log(res.locals.auth_data);
-    return res.send({message: 'Essa informação é muito importante. Usuários não autorizados não deveriam recebê-la!'});
-});
-
-router.post('/', (req, res) => {
-    return res.send({message: 'Tudo ok com o método POST da raiz!'});
-});
-
+};
 
 router.get('/users', async (req, res) => {
     try {
@@ -62,25 +52,72 @@ router.post('/users/auth', async (req, res) => {
 
         if(!pass_ok) return res.status(401).send({ error: 'Erro ao autenticar usuário!' });
 
+        const token = createUserToken(user.id) 
+        user.token.push(token)
+        await user.save()
+
         user.password = undefined;
-        return res.send({ user, token: createUserToken(user.id) });
+        return res.send({ user, token});
     }
     catch (err) {
         return res.status(500).send({ error: 'Erro ao buscar usuário!' });
     }
+    
+});
+
+router.put('/users/logout', auth, async (req, res) => {
+    const user = await Users.findOne({_id: req.id }).select('+password');
+    const token = req.headers["auth"]
+    const index = user.token.indexOf(token)
+    user.token.splice(index, 1)
+    await user.save()
+    return res.send('logout realizado com sucesso')
 
 });
 
+router.get('/tasks', async (req, res) => {
+    try {
+        const users = await Users.find({userid: req.id});
+        return res.send(users);
+    }
+    catch (err) {
+        return res.status(500).send({ error: 'Erro na consulta de usuários!' });
+    }
+});
+
 router.post('/task/create', async (req, res) => {
-    const { task, prioridade } = req.body;
-    if (!task || !prioridade) return res.status(400).send({ error: 'Dados insuficientes!' });
+    const task = req.body;
 
     try {
-        if (await Tasks.findOne({ Tasks })) return res.status(400).send({ error: 'Usuário já registrado!'});
+        const task = await Tasks.create(task);
 
-        const task = await Tasks.create(req.body);
+        return res.status(201).send(task);
+    }
+    catch (err) {
+        return res.status(500).send({ error: 'Erro ao buscar Task' });
+    }
+});
 
-        return res.status(201).send('tarefa criado com sucesso');
+router.put('/task/edit', async (req, res) => {
+    const task = req.body;
+
+    try {
+        const task = await Tasks.create(task);
+
+        return res.status(201).send(task);
+    }
+    catch (err) {
+        return res.status(500).send({ error: 'Erro ao buscar Task' });
+    }
+});
+
+router.delete('/task/delete', async (req, res) => {
+    const task = req.body;
+
+    try {
+        const task = await Tasks.create(task);
+
+        return res.status(201).send(task);
     }
     catch (err) {
         return res.status(500).send({ error: 'Erro ao buscar Task' });

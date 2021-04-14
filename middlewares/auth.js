@@ -7,7 +7,9 @@ const auth = (req, res, next) => {
 
     jwt.verify(token_header, config.jwt_pass, (err, decoded) => {
         if (err) return res.status(401).send({ error: 'Token inválido!' });
-        res.locals.auth_data = decoded;
+        const user = await Users.findOne({_id: decoded.sub });
+        if (!user.token.includes(token_header)) return res.status(401).send({ error: 'Token inválido!' }); 
+        req.id = decoded.sub
         return next();
     });
 }
