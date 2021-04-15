@@ -9,7 +9,11 @@ const Tasks = require('./model/tasks');
 
 //FUNÇÕES AUXILIARES
 const createUserToken = (userId) => {
-    return jwt.sign({ id: userId }, config.jwt_pass, { expiresIn: config.jwt_expires_in });
+    return jwt.sign({
+        iss: 'desafio',
+        sub: userId,
+        iat: new Date().getTime()
+    }, config.jwt_pass);
 };
 
 router.get('/users', async (req, res) => {
@@ -52,12 +56,12 @@ router.post('/users/auth', async (req, res) => {
 
         if(!pass_ok) return res.status(401).send({ error: 'Erro ao autenticar usuário!' });
 
-        const token = createUserToken(user.id) 
+        const token = createUserToken(user._id) 
         user.token.push(token)
         await user.save()
 
         user.password = undefined;
-        return res.send({ user, token});
+        return res.send({ user });
     }
     catch (err) {
         return res.status(500).send({ error: 'Erro ao buscar usuário!' });
@@ -77,15 +81,28 @@ router.put('/users/logout', auth, async (req, res) => {
 
 router.get('/tasks', async (req, res) => {
     try {
-        const users = await Users.find({userid: req.id});
-        return res.send(users);
+        const tasks = await Tasks.find({userid: req.id});
+        return res.send(tasks);
     }
     catch (err) {
         return res.status(500).send({ error: 'Erro na consulta de usuários!' });
     }
 });
 
-router.post('/task/create', async (req, res) => {
+router.post('/tasks/create', async (req, res) => {
+    const tasks = req.body;
+
+    try {
+        const task = await Tasks.create(tasks);
+
+        return res.status(201).send(task);
+    }
+    catch (err) {
+        return res.status(500).send({ error: 'Erro ao buscar Task' });
+    }
+});
+
+router.put('/tasks/edit', async (req, res) => {
     const task = req.body;
 
     try {
@@ -98,20 +115,7 @@ router.post('/task/create', async (req, res) => {
     }
 });
 
-router.put('/task/edit', async (req, res) => {
-    const task = req.body;
-
-    try {
-        const task = await Tasks.create(task);
-
-        return res.status(201).send(task);
-    }
-    catch (err) {
-        return res.status(500).send({ error: 'Erro ao buscar Task' });
-    }
-});
-
-router.delete('/task/delete', async (req, res) => {
+router.delete('/tasks/delete', async (req, res) => {
     const task = req.body;
 
     try {
