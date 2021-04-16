@@ -79,17 +79,17 @@ router.put('/users/logout', auth, async (req, res) => {
 
 });
 
-router.get('/tasks', async (req, res) => {
+router.get('/tasks', auth, async (req, res) => {
     try {
         const tasks = await Tasks.find({userid: req.id});
         return res.send(tasks);
     }
     catch (err) {
-        return res.status(500).send({ error: 'Erro na consulta de usuários!' });
+        return res.status(500).send({ error: 'Erro na consulta de tarefas!' });
     }
 });
 
-router.post('/tasks/create', async (req, res) => {
+router.post('/tasks/create', auth,async (req, res) => {
     const tasks = req.body;
 
     try {
@@ -102,11 +102,11 @@ router.post('/tasks/create', async (req, res) => {
     }
 });
 
-router.put('/tasks/edit', async (req, res) => {
-    const task = req.body;
+router.put('/tasks/edit', auth,async (req, res) => {
+    const tasks = req.body;
 
     try {
-        const task = await Tasks.create(task);
+        const task = await Tasks.create(tasks);
 
         return res.status(201).send(task);
     }
@@ -115,11 +115,11 @@ router.put('/tasks/edit', async (req, res) => {
     }
 });
 
-router.delete('/tasks/delete', async (req, res) => {
-    const task = req.body;
+router.delete('/tasks/delete', auth,async (req, res) => {
+    const tasks = req.body;
 
     try {
-        const task = await Tasks.create(task);
+        const task = await Tasks.create(tasks);
 
         return res.status(201).send(task);
     }
