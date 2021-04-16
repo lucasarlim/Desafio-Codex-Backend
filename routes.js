@@ -75,7 +75,7 @@ router.put('/users/logout', auth, async (req, res) => {
     const index = user.token.indexOf(token)
     user.token.splice(index, 1)
     await user.save()
-    return res.send('logout realizado com sucesso')
+    return res.status(201).send('logout realizado com sucesso')
 
 });
 
@@ -103,29 +103,18 @@ router.post('/tasks/create', auth,async (req, res) => {
 });
 
 router.put('/tasks/edit', auth,async (req, res) => {
-    const tasks = req.body;
-
-    try {
-        const task = await Tasks.create(tasks);
-
-        return res.status(201).send(task);
-    }
-    catch (err) {
-        return res.status(500).send({ error: 'Erro ao buscar Task' });
-    }
+    const tasks = await Tasks.findOne({_id: req.body._id });
+    console.log(tasks)
+    tasks.task = req.body.task
+    tasks.prioridade = req.body.prioridade
+    console.log(tasks)
+    await tasks.save();
+    return res.status(201).send(tasks);
 });
 
 router.delete('/tasks/delete', auth,async (req, res) => {
-    const tasks = req.body;
-
-    try {
-        const task = await Tasks.create(tasks);
-
-        return res.status(201).send(task);
-    }
-    catch (err) {
-        return res.status(500).send({ error: 'Erro ao buscar Task' });
-    }
+    await Tasks.findOneAndDelete({_id: req.body._id });
+    res.status(201).send('task apagada com sucesso');
 });
 
 module.exports = router;
