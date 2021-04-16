@@ -82,7 +82,10 @@ router.put('/users/logout', auth, async (req, res) => {
 router.get('/tasks', auth, async (req, res) => {
     try {
         const tasks = await Tasks.find({userid: req.id});
-        return res.send(tasks);
+        return res.send(tasks.sort((a,b) => {
+            if(a.tasks.prioridade > b.tasks.prioridade) return 1;
+            else if(a.tasks.prioridade < b.tasks.prioridade) return -1;
+            else return 0;}));
     }
     catch (err) {
         return res.status(500).send({ error: 'Erro na consulta de tarefas!' });
