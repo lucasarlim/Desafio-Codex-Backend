@@ -17,7 +17,7 @@
 - [About](#about)
 - [User Stories](#user_stories)
 - [Getting Started](#getting_started)
-- [Usage](#usage)
+- [Starting](#starting)
 - [Built Using](#built_using)
 - [Authors](#authors)
 
@@ -61,7 +61,7 @@ npm i
 ```
 And you have finished it.
 
-## 🎈 Usage <a name="usage"></a>
+## 🚀 Starting <a name="starting"></a>
 
 You can start the local version typing in root:
 ```
