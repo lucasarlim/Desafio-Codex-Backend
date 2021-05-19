@@ -72,10 +72,10 @@ or:
 npm start
 ```
 
-## ⛏️ Built Using <a name = "built_using"></a>
+## 🛠️ Built Using <a name = "built_using"></a>
 
 - [NodeJs](https://nodejs.org/en/) - Server Environment
 
-## ✍️ Authors <a name = "authors"></a>
+## 🥳 Authors <a name = "authors"></a>
 
 - Made by [@lucasarlim](https://github.com/lucasarlim) and [@AlfredoAndrade14](https://github.com/AlfredoAndrade14)
