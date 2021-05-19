@@ -1,18 +1,81 @@
-# Desafio-Codex-Backend 💻
+<div align="center">
 
-O desafio consiste em desenvolver a parte backend de uma API que tem como objetivo gerenciar a rotina diária do usuário. De forma simplificada, é um sistema no qual você pode adicionar as atividades que serão realizadas ao longo do dia para que o usuário tenha um melhor controle do que ele precisa fazer e do que já foi feito.
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
-## Requisitos | User Stories ✔️
+</div>
 
-Eu, como usuário, gostaria que fosse possível adicionar tarefas no sistema.
-Eu, como usuário, gostaria que fosse possível dar nome a cada uma dessas tarefas (No momento da sua criação).
-Eu, como usuário, gostaria que fosse possível remover uma tarefa no sistema.
-Eu, como usuário, gostaria que fosse possível renomear as tarefas.
-Eu, como usuário, gostaria que fosse possível listar todas as tarefas.
-Eu, como usuário, gostaria que fosse possível adicionar prioridades às tarefas, sendo apenas Alta ou Baixa.
-Eu, como usuário, gostaria que fosse possível ordenar as tarefas por prioridade mais alta.
-Eu, como usuário, gostaria que fosse possível realizar cadastro no sistema.
-Eu, como usuário, gostaria que fosse possível realizar login no sistema (usando JWT).
-Eu, como usuário, gostaria que fosse possível realizar logout no sistema.
+---
 
+<p align="center">
+    <br> 
+    Online on: https://api-node-codex.herokuapp.com
+</p>
 
+## 📝 Table of Contents
+
+- [About](#about)
+- [User Stories](#user_stories)
+- [Getting Started](#getting_started)
+- [Usage](#usage)
+- [Built Using](#built_using)
+- [Authors](#authors)
+
+## 💻 About <a name = "about"></a>
+
+The challenge is to develop the backend part of an API that aims to manage the user's daily routine. In a simplified way, it is a system in which you can add the activities that will be carried out throughout the day so that the user has better control of what he needs to do and what has already been done.
+
+## ✔️ User Stories <a name = "user_stories"></a>
+
+<p>I, as a user, would like it to be possible to add tasks to the system.</p>
+<p>I, as a user, would like it to be possible to name each of these tasks (at the time of its creation).</p>
+<p>I, as a user, would like it to be possible to remove a task from the system.</p>
+<p>I, as a user, would like to be able to rename the tasks.</p>
+<p>I, as a user, would like to be able to list all tasks.</p>
+<p>I, as a user, would like it to be possible to add priorities to the tasks, being only High or Low.</p>
+<p>I, as a user, would like it to be possible to sort tasks by a higher priority.</p>
+<p>I, as a user, would like it to be possible to register in the system.</p>
+<p>I, as a user, would like to be able to login to the system (using JWT).</p>
+<p>I, as a user, would like it to be possible to log out of the system.</p>
+
+## 🏁 Getting Started <a name = "getting_started"></a>
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+To make all easier, it's better you have Yarn. But, you can install everything with NPM too.
+
+Yarn Official Website:
+https://classic.yarnpkg.com/pt-BR/
+
+### Installing
+
+Then, type:
+```
+yarn
+```
+or:
+```
+npm i
+```
+And you have finished it.
+
+## 🎈 Usage <a name="usage"></a>
+
+You can start the local version typing in root:
+```
+yarn start
+```
+or:
+```
+npm start
+```
+
+## ⛏️ Built Using <a name = "built_using"></a>
+
+- [NodeJs](https://nodejs.org/en/) - Server Environment
+
+## ✍️ Authors <a name = "authors"></a>
+
+- Made by [@lucasarlim](https://github.com/lucasarlim) and [@AlfredoAndrade14](https://github.com/AlfredoAndrade14)
